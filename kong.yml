@@ -1,0 +1,24 @@
+_format_version: "3.0"
+
+consumers:
+  - username: ${KONG_USERNAME}
+    keyauth_credentials:
+      - key: ${KONG_API_KEY}
+
+services:
+  - name: book-service
+    url: ${BOOK_SERVICE_URL}
+    routes:
+      - name: book-route
+        paths:
+          - /books
+
+plugins:
+  - name: key-auth
+    service: book-service
+
+  - name: rate-limiting
+    service: book-service
+    config:
+      minute: 5
+      policy: local
