@@ -1,13 +1,13 @@
 _format_version: "3.0"
 
 consumers:
-  - username: ${KONG_USERNAME}
+  - username: "${vault://env/KONG_USERNAME}"
     keyauth_credentials:
-      - key: ${KONG_API_KEY}
+      - key: "${vault://env/KONG_API_KEY}"
 
 services:
   - name: book-service
-    url: ${BOOK_SERVICE_URL}
+    url: "${vault://env/BOOK_SERVICE_URL}"
     routes:
       - name: book-route
         paths:
